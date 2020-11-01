@@ -42,7 +42,7 @@ const ProductType = {
 
 var users = [
     {
-      userId: 0,
+      id: 0,
       surname: "King",
       lastname: "Clifford",
       email: "King.Clifford@gmail.com",
@@ -69,7 +69,7 @@ var users = [
       ],
     },
     {
-      userId: 1,
+      id: 1,
       surname: "Toni",
       lastname: "Shepherd",
       email: "Toni.Shepherd@gmail.com",
@@ -87,7 +87,7 @@ var users = [
       ],
     },
     {
-      userId: 2,
+      id: 2,
       surname: "Yanis",
       lastname: "Calvert",
       email: "Yanis.Calvert@gmail.com",
@@ -240,9 +240,6 @@ var users = [
     res.send(warehouses);
   });
 
-  app.get("/users", (req, res) => {
-    res.send(users);
-  });
 
   app.get("/products", (req, res) => {
     res.send(products);
@@ -250,24 +247,77 @@ var users = [
 
   app.post("/product", (req, res) => {
     if (req.body.product) {
-      for (let i = 0; i <= 7; i++) {
-        if (typeof req.body.product[i] === undefined) {
-          res.status(400);
-          res.send("ERROR: bad object");
-          return;
-        }
+      if (
+        "id" in req.body.product &&
+        "name" in req.body.product &&
+        "type" in req.body.product &&
+        "size" in req.body.product &&
+        "period" in req.body.product &&
+        "warehouse" in req.body.product &&
+        "status" in req.body.product
+      ) {
+        products.push(req.body.product);
+        res.status(200);
+        res.send("Success!");
+        console.log(products);
+      } else {
+        res.status(400);
+        res.send("ERROR: bad object");
+        return;
       }
-      products.push(req.body.product);
-      res.status(200);
-      res.send("Success!");
     } else {
       res.status(400);
-      res.send("ERROR 400: no body");
+      res.send("ERROR 400: cannot find product in body");
     }
   });
 
-  app.get("/login", (req, res) => {
-    if (typeof req.body.loginDetails === undefined) {
+  app.get("/users", (req, res) => {
+    res.send(users);
+  });
+
+  app.put("/user", (req, res) => {
+    if ("user" in req.body === false) {
+        res.status(400);
+        res.send("ERROR: cannot find user in body");
+        return;
+      } else if (
+        "id" in req.body.user &&
+        "surname" in req.body.user &&
+        "lastname" in req.body.user &&
+        "email" in req.body.user &&
+        "password" in req.body.user &&
+        "items" in req.body.user
+      ) {
+        users.map((user, i) => {
+            if(user.id === req.body.user.id) {
+                users[i] =  req.body.user;
+                res.send("EDIT_SUCCESS")
+                console.log(users);
+                return;
+            }
+        })
+      }
+      res.status(400);
+      res.send("EDIT_FAILED");
+  })
+
+  app.delete("/user", (req, res) => {
+      console.log(req.query.id);
+      const id = req.query.id;
+    users.map((user, i) => {
+        if (id === user.id.toString()) {
+            users.splice(i, 1);
+            console.log(users);
+            res.send("DELETE_SUCCESS");
+            return;
+        }
+    })
+    res.status(404);
+    res.send("ERROR: user not found")
+  })
+
+  app.post("/login", (req, res) => {
+    if ("loginDetails" in req.body === false) {
       res.status(400);
       res.send("ERROR: bad object");
       return;
@@ -277,7 +327,6 @@ var users = [
           req.body.loginDetails.email === user.email &&
           req.body.loginDetails.password === user.password
         ) {
-          res.status(200);
           res.send("LOGIN_SUCCESS");
           return;
         } else if (
@@ -286,6 +335,7 @@ var users = [
         ) {
           res.status(400);
           res.send("WRONG_PASSWORD");
+          return;
         }
       });
     }
@@ -293,21 +343,27 @@ var users = [
     res.send("LOGIN_FAILED");
   });
 
-  app.get("/Register", (req, res) => {
-    if (typeof req.body.user === undefined) {
+  app.post("/register", (req, res) => {
+    if ("user" in req.body === false) {
       res.status(400);
-      res.send("ERROR: bad object");
+      res.send("ERROR: cannot find user in body");
       return;
     } else if (
-      typeof req.body.user.email !== undefined &&
-      typeof req.body.user.password !== undefined
+      "id" in req.body.user &&
+      "surname" in req.body.user &&
+      "lastname" in req.body.user &&
+      "email" in req.body.user &&
+      "password" in req.body.user &&
+      "items" in req.body.user
     ) {
       users.push(req.body.user);
+      res.send("REGISTER_SUCCESS")
+      console.log(users);
+      return;
     }
-
     res.status(400);
-    res.send("SIGNUP_FAILED");
+    res.send("REGISTER_FAILED");
   });
 
 
-app.listen(3000);
+app.listen(2000);
