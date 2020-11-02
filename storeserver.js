@@ -252,6 +252,33 @@ var users = [
     },
   ];
 
+  const calculateCompanyFromProduct = (product) => {
+    const cubicDimension = parseInt(product.size.height) * parseInt(product.size.length) * parseInt(product.size.width);
+    if (cubicDimension <= 1.5 && product.type === ProductType.Cardboard) {
+      return WarehouseName.Hatchworks;
+    }
+    if (cubicDimension <= 5 && product.type === ProductType.Cardboard ||
+      product.type === ProductType.Furniture || product.type === ProductType.Electronics ) {
+        return WarehouseName.Solstice_Enterprises;
+      }
+
+    if (cubicDimension <= 10 && product.type === ProductType.Vehicle || product.type === ProductType.Furniture ) {
+      return WarehouseName.Odin_Networks;
+    }
+
+    if (cubicDimension <= 3 && product.type === ProductType.Electronics || product.type === ProductType.Cardboard ) {
+      return WarehouseName.Phantomedia;
+    }
+
+    if (cubicDimension <= 30 && cubicDimension >= 5 && product.type === ProductType.Vehicle) {
+      return WarehouseName.Sphinxecurity;
+    }
+
+    return undefined;
+
+  }
+
+
   app.get("/warehouses", (req, res) => {
     res.send(warehouses);
   });
@@ -270,21 +297,32 @@ var users = [
         "type" in req.body.product &&
         "size" in req.body.product &&
         "period" in req.body.product &&
-        "warehouse" in req.body.product &&
         "status" in req.body.product
       ) {
+
+        //if it exists
+        products.map((p) => {
+          if (p.id === req.body.product.id) {
+            res.status(409);
+            res.send("ERROR: product already exists")
+            return;
+          }
+        })
+
+        const productToAdd = req.body.product;
+        productToAdd.warehouse = calculateCompanyFromProduct(productToAdd);
         users.map((user, i) => {
-          console.log(req.body.product.ownerId, user.id);
-          if (req.body.product.ownerId === user.id) {
-            users[i].items.push(req.body.product)
+          console.log(productToAdd.ownerId, user.id);
+          if (productToAdd.ownerId === user.id) {
+            users[i].items.push(productToAdd)
           }
         })
         warehouses.map((warehouse, i) => {
-          if (warehouse.name === req.body.product.warehouse) {
-            warehouses[i].items.push(req.body.product);
+          if (warehouse.name === productToAdd.warehouse) {
+            warehouses[i].items.push(productToAdd);
           }
         })
-        products.push(req.body.product);
+        products.push(productToAdd);
         res.status(200);
         res.send("POST_SUCCESS");
         console.log(products);
