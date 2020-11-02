@@ -39,6 +39,18 @@ const ProductType = {
     Vehicle : "Vehicle",
     Cardboard : "Cardboard"
 }
+var devs = [
+  {
+    name: "dev1",
+    email: "123@123.com",
+    password: "12345"
+  },
+  {
+    name: "dev2",
+    email: "123@123.com",
+    password: "12345"
+  },
+]
 
 var users = [
     {
@@ -201,6 +213,7 @@ var users = [
     {
       id: "11943",
       name: "Sofa model 1075",
+      ownerId: "0",
       period: { fromDate: "2020-07-12", toDate: "2020-12-19" },
       size: { height: "1.2", length: "2.1", width: "1" },
       status: ProductStatus.ACTIVE,
@@ -210,6 +223,7 @@ var users = [
     {
       id: "74567",
       name: "Samsung S20X11",
+      ownerId: "0",
       period: { fromDate: "2020-02-12", toDate: "2022-06-04" },
       size: { height: "2", length: "2.5", width: "0.2" },
       status: ProductStatus.ACTIVE,
@@ -219,6 +233,7 @@ var users = [
     {
       id: "35634",
       name: "Volvo XC90",
+      ownerId: "1",
       period: { fromDate: "2018-07-17", toDate: "2019-02-05" },
       size: { height: "2.5", length: "3.5", width: "1.5" },
       status: ProductStatus.INACTIVE,
@@ -228,6 +243,7 @@ var users = [
     {
       id: "87744",
       name: "Cardboard17776",
+      ownerId: "2",
       period: { fromDate: "2020-01-11", toDate: "2021-06-23" },
       size: { height: "1.2", length: "2", width: "0.5" },
       status: ProductStatus.ACTIVE,
@@ -250,16 +266,30 @@ var users = [
       if (
         "id" in req.body.product &&
         "name" in req.body.product &&
+        "ownerId" in req.body.product &&
         "type" in req.body.product &&
         "size" in req.body.product &&
         "period" in req.body.product &&
         "warehouse" in req.body.product &&
         "status" in req.body.product
       ) {
+        users.map((user, i) => {
+          console.log(req.body.product.ownerId, user.id);
+          if (req.body.product.ownerId === user.id) {
+            users[i].items.push(req.body.product)
+          }
+        })
+        warehouses.map((warehouse, i) => {
+          if (warehouse.name === req.body.product.warehouse) {
+            warehouses[i].items.push(req.body.product);
+          }
+        })
         products.push(req.body.product);
         res.status(200);
         res.send("POST_SUCCESS");
         console.log(products);
+        console.log(users);
+        console.log(warehouses);
       } else {
         res.status(400);
         res.send("ERROR: bad object");
@@ -276,17 +306,36 @@ var users = [
         if (
           "id" in req.body.product &&
           "name" in req.body.product &&
+          "ownerId" in req.body.product &&
           "type" in req.body.product &&
           "size" in req.body.product &&
           "period" in req.body.product &&
           "warehouse" in req.body.product &&
           "status" in req.body.product
         ) {
-            console.log(req.body.product.id);
+          users.map((user, y) => {
+            console.log(req.body.product.ownerId, user.id);
+            if (req.body.product.ownerId === user.id) {
+              users[y].items.map((item, i) => {
+                if (item.id === req.body.product.id) {
+                  users[y].items[i] = req.body.product;
+                }
+              })
+            }
+          })
+          warehouses.map((warehouse, y) => {
+            if (warehouse.name === req.body.product.warehouse) {
+              warehouses[y].items.map((item, i) => {
+                if (item.id === req.body.product.warehouse) {
+                  warehouses[y].items[i] = req.body.product;
+                }
+              })
+            }
+          })
             products.map((product, i) => {
                 if(product.id === req.body.product.id) {
                     products[i] = req.body.product;
-                    console.log(products);
+                    console.log(users, warehouses);
                     res.send("EDIT_SUCCESS");
                     return;
                 }
@@ -369,28 +418,23 @@ var users = [
   })
 
   app.post("/login", (req, res) => {
-    if ("loginDetails" in req.body === false) {
-      res.status(400);
-      res.send("ERROR: bad object");
-      return;
-    } else {
       users.map((user) => {
         if (
-          req.body.loginDetails.email === user.email &&
-          req.body.loginDetails.password === user.password
+          req.query.email === user.email &&
+          req.query.password === user.password
         ) {
           res.send("LOGIN_SUCCESS");
           return;
         } else if (
-          req.body.loginDetails.email === user.email &&
-          req.body.loginDetails.password !== user.password
+          req.query.email === user.email &&
+          req.query.password !== user.password
         ) {
           res.status(400);
           res.send("WRONG_PASSWORD");
           return;
         }
       });
-    }
+
     res.status(400);
     res.send("LOGIN_FAILED");
   });
@@ -416,6 +460,28 @@ var users = [
     res.status(400);
     res.send("REGISTER_FAILED");
   });
+
+  app.post("/login/dev", (req,res) => {
+      devs.map((dev) => {
+        if (
+          req.query.email === dev.email &&
+          req.query.password === dev.password
+        ) {
+          res.send("LOGIN_SUCCESS");
+          return;
+        } else if (
+          req.query.email === dev.email &&
+          req.query.password !== dev.password
+        ) {
+          res.status(400);
+          res.send("WRONG_PASSWORD");
+          return;
+        }
+      });
+
+    res.status(400);
+    res.send("LOGIN_FAILED");
+  })
 
 
 app.listen(2000);
