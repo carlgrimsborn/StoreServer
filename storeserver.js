@@ -42,14 +42,14 @@ const ProductType = {
 
 var users = [
     {
-      id: 0,
+      id: "0",
       surname: "King",
       lastname: "Clifford",
       email: "King.Clifford@gmail.com",
       password: "12345",
       items: [
         {
-          id: 11943,
+          id: "11943",
           name: "Sofa model 1075",
           period: { fromDate: "2020-07-12", toDate: "2020-12-19" },
           size: { height: 1.2, length: 2.1, width: 1 },
@@ -58,7 +58,7 @@ var users = [
           warehouse: WarehouseName.Solstice_Enterprises,
         },
         {
-          id: 74567,
+          id: "74567",
           name: "Samsung S20X11",
           period: { fromDate: "2020-02-12", toDate: "2022-06-04" },
           size: { height: 2, length: 2.5, width: 0.2 },
@@ -69,14 +69,14 @@ var users = [
       ],
     },
     {
-      id: 1,
+      id: "1",
       surname: "Toni",
       lastname: "Shepherd",
       email: "Toni.Shepherd@gmail.com",
       password: "12345",
       items: [
         {
-          id: 35634,
+          id: "35634",
           name: "Volvo XC90",
           period: { fromDate: "2018-07-17", toDate: "2019-02-05" },
           size: { height: 2.5, length: 3.5, width: 1.5 },
@@ -87,17 +87,17 @@ var users = [
       ],
     },
     {
-      id: 2,
+      id: "2",
       surname: "Yanis",
       lastname: "Calvert",
       email: "Yanis.Calvert@gmail.com",
       password: "12345",
       items: [
         {
-          id: 87744,
+          id: "87744",
           name: "Cardboard17776",
           period: { fromDate: "2020-01-11", toDate: "2021-06-23" },
-          size: { height: 1.2, length: 2, width: 0.5 },
+          size: { height: "1.2", length: "2", width: "0.5" },
           status: ProductStatus.ACTIVE,
           type: ProductType.Cardboard,
           warehouse: WarehouseName.Phantomedia,
@@ -111,8 +111,8 @@ var users = [
       name: WarehouseName.Hatchworks,
       items: [],
       productSizeRange: {
-        fromValue: 0,
-        toValue: 1.5,
+        fromValue: "0",
+        toValue: "1.5",
       },
       productTypes: [ProductType.Cardboard],
     },
@@ -120,18 +120,18 @@ var users = [
       name: WarehouseName.Solstice_Enterprises,
       items: [
         {
-          id: 11943,
+          id: "11943",
           name: "Sofa model 1075",
           period: { fromDate: "2020-07-12", toDate: "2020-12-19" },
-          size: { height: 1.2, length: 2.1, width: 1 },
+          size: { height: "1.2", length: "2.1", width: "1" },
           status: ProductStatus.ACTIVE,
           type: ProductType.Furniture,
           warehouse: WarehouseName.Solstice_Enterprises,
         },
       ],
       productSizeRange: {
-        fromValue: 0,
-        toValue: 5,
+        fromValue: "0",
+        toValue: "5",
       },
       productTypes: [
         ProductType.Cardboard,
@@ -143,18 +143,18 @@ var users = [
       name: WarehouseName.Odin_Networks,
       items: [
         {
-          id: 35634,
+          id: "35634",
           name: "Volvo XC90",
           period: { fromDate: "2018-07-17", toDate: "2019-02-05" },
-          size: { height: 2.5, length: 3.5, width: 1.5 },
+          size: { height: "2.5", length: "3.5", width: "1.5" },
           status: ProductStatus.INACTIVE,
           type: ProductType.Vehicle,
           warehouse: WarehouseName.Odin_Networks,
         },
       ],
       productSizeRange: {
-        fromValue: 0,
-        toValue: 10,
+        fromValue: "0",
+        toValue: "10",
       },
       productTypes: [ProductType.Furniture, ProductType.Vehicle],
     },
@@ -162,27 +162,27 @@ var users = [
       name: WarehouseName.Phantomedia,
       items: [
         {
-          id: 74567,
+          id: "74567",
           name: "Samsung S20X11",
           period: { fromDate: "2020-02-12", toDate: "2022-06-04" },
-          size: { height: 2, length: 2.5, width: 0.2 },
+          size: { height: "2", length: "2.5", width: "0.2" },
           status: ProductStatus.ACTIVE,
           type: ProductType.Electronics,
           warehouse: WarehouseName.Phantomedia,
         },
         {
-          id: 87744,
+          id: "87744",
           name: "Cardboard17776",
           period: { fromDate: "2020-01-11", toDate: "2021-06-23" },
-          size: { height: 1.2, length: 2, width: 0.5 },
+          size: { height: "1.2", length: "2", width: "0.5" },
           status: ProductStatus.ACTIVE,
           type: ProductType.Cardboard,
           warehouse: WarehouseName.Phantomedia,
         },
       ],
       productSizeRange: {
-        fromValue: 0,
-        toValue: 3,
+        fromValue: "0",
+        toValue: "3",
       },
       productTypes: [ProductType.Electronics, ProductType.Cardboard],
     },
@@ -190,8 +190,8 @@ var users = [
       name: WarehouseName.Sphinxecurity,
       items: [],
       productSizeRange: {
-        fromValue: 5,
-        toValue: 30,
+        fromValue: "5",
+        toValue: "30",
       },
       productTypes: [ProductType.Vehicle],
     },
@@ -199,37 +199,37 @@ var users = [
 
   var products = [
     {
-      id: 11943,
+      id: "11943",
       name: "Sofa model 1075",
       period: { fromDate: "2020-07-12", toDate: "2020-12-19" },
-      size: { height: 1.2, length: 2.1, width: 1 },
+      size: { height: "1.2", length: "2.1", width: "1" },
       status: ProductStatus.ACTIVE,
       type: ProductType.Furniture,
       warehouse: WarehouseName.Solstice_Enterprises,
     },
     {
-      id: 74567,
+      id: "74567",
       name: "Samsung S20X11",
       period: { fromDate: "2020-02-12", toDate: "2022-06-04" },
-      size: { height: 2, length: 2.5, width: 0.2 },
+      size: { height: "2", length: "2.5", width: "0.2" },
       status: ProductStatus.ACTIVE,
       type: ProductType.Electronics,
       warehouse: WarehouseName.Phantomedia,
     },
     {
-      id: 35634,
+      id: "35634",
       name: "Volvo XC90",
       period: { fromDate: "2018-07-17", toDate: "2019-02-05" },
-      size: { height: 2.5, length: 3.5, width: 1.5 },
+      size: { height: "2.5", length: "3.5", width: "1.5" },
       status: ProductStatus.INACTIVE,
       type: ProductType.Vehicle,
       warehouse: WarehouseName.Odin_Networks,
     },
     {
-      id: 87744,
+      id: "87744",
       name: "Cardboard17776",
       period: { fromDate: "2020-01-11", toDate: "2021-06-23" },
-      size: { height: 1.2, length: 2, width: 0.5 },
+      size: { height: "1.2", length: "2", width: "0.5" },
       status: ProductStatus.ACTIVE,
       type: ProductType.Cardboard,
       warehouse: WarehouseName.Phantomedia,
@@ -258,7 +258,7 @@ var users = [
       ) {
         products.push(req.body.product);
         res.status(200);
-        res.send("Success!");
+        res.send("POST_SUCCESS");
         console.log(products);
       } else {
         res.status(400);
@@ -270,6 +270,58 @@ var users = [
       res.send("ERROR 400: cannot find product in body");
     }
   });
+
+  app.put("/product", (req, res) => {
+    if (req.body.product) {
+        if (
+          "id" in req.body.product &&
+          "name" in req.body.product &&
+          "type" in req.body.product &&
+          "size" in req.body.product &&
+          "period" in req.body.product &&
+          "warehouse" in req.body.product &&
+          "status" in req.body.product
+        ) {
+            console.log(req.body.product.id);
+            products.map((product, i) => {
+                if(product.id === req.body.product.id) {
+                    products[i] = req.body.product;
+                    console.log(products);
+                    res.send("EDIT_SUCCESS");
+                    return;
+                }
+            })
+            res.status(404);
+            res.send("ERROR: no product with that id");
+            return;
+        } else {
+          res.status(400);
+          res.send("ERROR: bad object");
+          return;
+        }
+      } else {
+        res.status(400);
+        res.send("ERROR 400: cannot find product in body");
+      }
+      return;
+  });
+
+  app.delete("/product", (req, res) => {
+    console.log(req.query.id);
+    const id = req.query.id;
+    products.map((product, i) => {
+      if (id === product.id) {
+        products.splice(i, 1);
+        console.log(products);
+        res.send("DELETE_SUCCESS");
+        return;
+      }
+    });
+    res.status(404);
+    res.send("ERROR: product not found");
+  });
+
+
 
   app.get("/users", (req, res) => {
     res.send(users);
@@ -291,7 +343,7 @@ var users = [
         users.map((user, i) => {
             if(user.id === req.body.user.id) {
                 users[i] =  req.body.user;
-                res.send("EDIT_SUCCESS")
+                res.send("EDIT_SUCCESS");
                 console.log(users);
                 return;
             }
@@ -305,7 +357,7 @@ var users = [
       console.log(req.query.id);
       const id = req.query.id;
     users.map((user, i) => {
-        if (id === user.id.toString()) {
+        if (id === user.id) {
             users.splice(i, 1);
             console.log(users);
             res.send("DELETE_SUCCESS");
@@ -357,7 +409,7 @@ var users = [
       "items" in req.body.user
     ) {
       users.push(req.body.user);
-      res.send("REGISTER_SUCCESS")
+      res.send("REGISTER_SUCCESS");
       console.log(users);
       return;
     }
