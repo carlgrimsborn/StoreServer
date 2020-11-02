@@ -490,6 +490,16 @@ var users = [
       "password" in req.body.user &&
       "items" in req.body.user
     ) {
+
+       //if it exists
+       users.map((u) => {
+        if (u.id === req.body.user.id) {
+          res.status(409);
+          res.send("ERROR: user already exists")
+          return;
+        }
+      })
+
       users.push(req.body.user);
       res.send("REGISTER_SUCCESS");
       console.log(users);
