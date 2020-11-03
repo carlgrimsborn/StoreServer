@@ -501,7 +501,7 @@ var users = [
       })
 
       users.push(req.body.user);
-      res.send("REGISTER_SUCCESS");
+      res.send(req.body.user);
       console.log(users);
       return;
     }
@@ -515,7 +515,7 @@ var users = [
           req.query.email === dev.email &&
           req.query.password === dev.password
         ) {
-          res.send("LOGIN_SUCCESS");
+          res.send(dev);
           return;
         } else if (
           req.query.email === dev.email &&
