@@ -461,7 +461,7 @@ var users = [
           req.query.email === user.email &&
           req.query.password === user.password
         ) {
-          res.send("LOGIN_SUCCESS");
+          res.send(user);
           return;
         } else if (
           req.query.email === user.email &&
