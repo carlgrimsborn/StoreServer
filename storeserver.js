@@ -254,7 +254,7 @@ var users = [
 
   const calculateCompanyFromProduct = (product) => {
     const cubicDimension = parseInt(product.size.height) * parseInt(product.size.length) * parseInt(product.size.width);
-    if (cubicDimension <= 1.5 && product.type === ProductType.Cardboard) {
+    if (cubicDimension <= 3 && product.type === ProductType.Cardboard) {
       return WarehouseName.Hatchworks;
     }
     if (cubicDimension <= 5 && product.type === ProductType.Cardboard ||
@@ -274,7 +274,7 @@ var users = [
       return WarehouseName.Sphinxecurity;
     }
 
-    return undefined;
+    return WarehouseName.Odin_Networks;
 
   }
 
@@ -407,7 +407,6 @@ var users = [
     res.status(404);
     res.send("ERROR: product not found");
   });
-
 
 
   app.get("/users", (req, res) => {
